@@ -9,6 +9,7 @@ import Emotions from './pages/Emotions';
 import Stress from './pages/Stress';
 import Zen from './pages/Zen';
 import Mindfulness from './pages/Mindfulness';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/stress" element={<Stress />} />
         <Route path="/zen" element={<Zen />} />
         <Route path="/mindfulness" element={<Mindfulness />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

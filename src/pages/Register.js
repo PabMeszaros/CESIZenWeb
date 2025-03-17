@@ -1,9 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Register() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex flex-col items-center justify-center p-4">
       {/* Decorative elements */}
@@ -44,7 +44,7 @@ function Login() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            Bienvenue à nouveau dans votre parcours de bien-être
+            Commencez votre parcours de bien-être avec nous
           </motion.p>
         </motion.div>
 
@@ -55,24 +55,22 @@ function Login() {
           transition={{ delay: 0.2, duration: 0.7 }}
         >
           <div className="p-8">
-            <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">Connexion</h2>
-            <LoginForm />
+            <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">Inscription</h2>
+            <RegisterForm />
 
             <div className="mt-6 text-center text-sm">
-              <p className="text-gray-500">
-                Vous n'avez pas de compte ?{" "}
-                <Link to="/register" className="text-purple-500 hover:text-purple-600 font-medium">
-                  Inscrivez-vous
-                </Link>
-              </p>
-              <Link to="/forgot-password" className="block mt-2 text-purple-500 hover:text-purple-600 font-medium">
-                Mot de passe oublié ?
-              </Link>
-            </div>
+  <p className="text-gray-500">
+    Vous avez déjà un compte ?{" "}
+    <Link to="/" className="text-purple-500 hover:text-purple-600 font-medium">
+      Connectez-vous
+    </Link>
+  </p>
+</div>
+
           </div>
 
           <div className="py-4 bg-gradient-to-r from-pink-100 to-purple-100 text-center text-sm text-gray-600">
-            <p>Protégé par un cryptage sécurisé</p>
+            <p>Vos données sont protégées par un cryptage sécurisé</p>
           </div>
         </motion.div>
       </div>
@@ -80,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
