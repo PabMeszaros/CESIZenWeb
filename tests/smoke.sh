@@ -11,7 +11,7 @@ if [ "$status" != "200" ]; then
 fi
 echo "✅ HTTP 200 OK"
 
-echo "🔎 Smoke test: check page content"
+echo "🔎 Smoke test: check page content."
 if grep -q "Login" /tmp/page.html; then
   echo "✅ Login page content OK"
 else
