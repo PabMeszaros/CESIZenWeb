@@ -1,0 +1,68 @@
+name: CI-CD React Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test -- --watchAll=false
+
+      - name: Build Docker image
+        run: docker build -t my-react-app:${{ github.sha }} .
+
+      - name: Run container (test env)
+        run: docker run -d -p 8080:80 --name react-test my-react-app:${{ github.sha }}
+
+      - name: Wait for container
+        run: |
+          for i in {1..10}; do
+            status=$(curl -s -o /tmp/page.html -w "%{http_code}" http://localhost:8080 || echo 000)
+            if [ "$status" == "200" ]; then
+              echo "✅ Container ready"
+              break
+            fi
+            echo "⏳ Waiting for container..."
+            sleep 2
+          done
+
+      - name: Smoke tests
+        run: bash tests/smoke.sh http://localhost:8080
+
+      - name: Show logs
+        if: always()
+        run: docker logs react-test || true
+
+      - name: Clean up
+        if: always()
+        run: |
+          docker stop react-test || true
+          docker rm react-test || true
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Deploy to Render
+        run: |
+          # Remplace par ta commande Render CLI
+          echo "Ici, tu déclenches le déploiement sur Render"
