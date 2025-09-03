@@ -1,19 +1,18 @@
-describe('React App routes', () => {
+describe('React App Routes', () => {
     const routes = [
-        { path: '/', title: 'Login' },
-        { path: '/home', title: 'Home' },
-        { path: '/profile', title: 'Profile' },
-        { path: '/activities', title: 'Activities' },
+        { path: '/', text: 'Connexion' },
+        { path: '/home', text: 'Home' },
+        { path: '/profile', text: 'Profile' },
+        { path: '/activities', text: 'Activities' },
     ];
 
-    beforeEach(() => {
-        cy.visit('http://localhost:8080');
-    });
-
-    routes.forEach(({ path, title }) => {
-        it(`loads ${title} page`, () => {
+    routes.forEach(({ path, text }) => {
+        it(`should render the ${text} page for route ${path}`, () => {
+            // On visite la route spécifique directement
             cy.visit(`http://localhost:8080${path}`);
-            cy.contains(title).should('exist');
+
+            // Vérifie que le texte attendu est visible
+            cy.contains(text).should('be.visible');
         });
     });
 });
