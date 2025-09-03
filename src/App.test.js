@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-// ici, on ne wrap PAS avec MemoryRouter
 test('renders Login page by default', () => {
   render(<App />);
-  expect(screen.getByText(/login/i)).toBeInTheDocument();
+  // Vérifie le titre de la page de connexion
+  expect(screen.getByText(/connexion/i)).toBeInTheDocument();
+
+  // Vérifie que le texte de bienvenue est affiché
+  expect(
+    screen.getByText(/bienvenue à nouveau dans votre parcours de bien-être/i)
+  ).toBeInTheDocument();
 });
